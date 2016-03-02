@@ -1,0 +1,44 @@
+<h1><%= @article.title %></h1>
+<p><%= @article.content %></p>
+<p><a href="/">Retourner à la liste des articles</a></p>
+
+<br/>
+<hr/>
+
+<h3>Liste des commentaires</h3>
+
+<% @comments.each do |comment| %>
+        <% unless (comment.content).empty? or (comment.author).empty? %>
+            <p>Auteur : <%= comment.author %></p> 
+            <p>Commentaire : <%= comment.content %></p>
+            <br/>
+        <% end %>
+<% end %>
+
+
+<%= paginate @comments %>
+
+<br/>
+<hr/>
+
+
+<!-- formulaire d'ajout de commentaires -->
+
+
+<h5>Ajouter un commentaire</h5>
+
+
+<%= form_tag "/articles/#{@article.id}", method: "post" do %>
+    
+    <%= text_field_tag :author, "", :placeholder => "Auteur" %> <br/><br/>
+    <%= text_area_tag :content, "", :placeholder => "Commentaire" %> <br/> <br/>
+    <%= submit_tag "Ajouter un commentaire" %>
+<%  end %>
+    
+    <!-- 
+    <input type="text" name="author" placeholder="Auteur" />
+    <input type="text" name="content" placeholder="Commentaire" />
+    <br/>
+    <input type="submit" value="Ajouter un commentaire" />
+    -->
+    <br/>
